@@ -34,15 +34,12 @@ String getDeviceState(String deviceId, String defaultState) {
 
   char lastRead = '\0';
   while (Serial.available() > 0 && lastRead != '~') {
-    Log("Reading serial");
     lastRead = Serial.read();
     if (lastRead == '~') {
       deviceLastState = deviceNextState;
       deviceNextState = "";
-      Log(deviceLastState);
     } else {
       deviceNextState += lastRead;
-      Log(deviceNextState);
     }
   }
 
@@ -75,7 +72,7 @@ void setup() {
 int lastButtonState = LOW;
 
 void loop() {
-  /*int buttonState = digitalRead(buttonPin);
+  int buttonState = digitalRead(buttonPin);
   if (buttonState != lastButtonState) {
     lastButtonState = buttonState;
     if (buttonState == HIGH) {
@@ -83,7 +80,7 @@ void loop() {
     } else {
       setDeviceState(BUTTON_DEVICE_ID, "off");
     }
-  }*/
+  }
   
   String deviceState = getDeviceState(BUTTON_DEVICE_ID, "off");
   if (deviceState == "on") {
